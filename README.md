@@ -1,14 +1,11 @@
 # Nodejs Healthcheck
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/hmcts/nodejs-healthcheck.svg)](https://greenkeeper.io/)
+A library for adding standard (k8s) healthchecks to nodejs applications.
 
-A library for adding reform standard compliant healthchecks to nodejs applications.
+It exposes 2 endpoints:
 
-It exposes 3 endpoints:
-
-1. `/health` - Returns 200 by default  along with `buildInfo`, can optionally include result evaluating all `checks` passed in config.
-2. `/health/liveness` - Returns 200 always.
-3. `/health/readiness` - Returns 200 by default , can optionally include result evaluating all `readinessChecks` passed in config.
+1. `/health/livez` - Returns 200 by default , can optionally include result evaluating all `readyz` passed in config.
+2. `/health/readyz` - Returns 200 by default , can optionally include result evaluating all `readyz` passed in config.
 
 ## Usage
 
@@ -61,12 +58,3 @@ Good example for check to be included in readiness:
 Bad example for check to be included in readiness:
 
 - Any shared components like IDAM, S2S or CCD.
-
-
-## Publishing
-
-Bump the version (SemVer) and create a release in the GitHub UI, Travis CI will then build test and release to the npm registry.
-
-## To Test
-
-Run yarn install (if packages not downloaded) and then run yarn test to run unit tests
