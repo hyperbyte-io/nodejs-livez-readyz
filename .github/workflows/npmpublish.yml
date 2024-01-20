@@ -1,15 +1,9 @@
 name: Node.js Package
 
 on:
-    pull_request:
-        branches:
-            - master
     push:
         branches:
-            - master
-            - refs/tags/*
-        tags:
-            - '*'
+            - main
 
 jobs:
     # build:
