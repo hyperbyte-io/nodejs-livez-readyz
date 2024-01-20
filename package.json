@@ -1,7 +1,7 @@
 {
-  "name": "@hmcts/nodejs-healthcheck",
+  "name": "nodejs-livez-readyz",
   "version": "1.8.3",
-  "description": "Healthcheck endpoint for Reform nodejs applications",
+  "description": "Healthcheck endpoints (/livez and /readyz) for nodejs applications",
   "main": "index.js",
   "engines": {
     "node": ">12.22.0"
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git@git.github.com:hmcts/nodejs-healthcheck.git"
   },
-  "author": "HMCTS Reform",
+  "author": "HMCTS Reform, HyperByte",
   "license": "MIT",
   "dependencies": {
     "@hmcts/nodejs-logging": "^4.0.4",

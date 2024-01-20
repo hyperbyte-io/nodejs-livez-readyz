@@ -1,14 +1,12 @@
-'use strict'
+"use strict";
 
-const routes = require('./routes')
-const outputs = require('./outputs')
+const routes = require("./routes");
 
-function addTo (app, config) {
-  app.get('/health', routes.configure(config))
-  app.get('/health/liveness', (req, res) => res.json(outputs.status(outputs.UP)))
-  app.get('/health/readiness', routes.checkReadiness(config.readinessChecks))
+function addTo(app, config) {
+  app.get("/health/livez", routes.checkLiveness(config.livez));
+  app.get("/health/readyz", routes.checkReadiness(config.readyz));
 }
 
 module.exports = {
-  addTo: addTo
-}
+  addTo: addTo,
+};

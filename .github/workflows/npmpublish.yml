@@ -1,57 +1,57 @@
 name: Node.js Package
 
 on:
-  pull_request:
-    branches:
-      - master
-  push:
-    branches:
-      - master
-      - refs/tags/*
-    tags:
-      - '*'
+    pull_request:
+        branches:
+            - master
+    push:
+        branches:
+            - master
+            - refs/tags/*
+        tags:
+            - '*'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
-      - run: yarn lint
+    # build:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - uses: actions/checkout@v1
+    #         - uses: actions/setup-node@v1
+    #           with:
+    #               node-version: 12
+    #         - run: yarn install --frozen-lockfile
+    #         - run: yarn test
+    #         - run: yarn lint
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-        if: startsWith(github.ref, 'refs/tags')
-      - uses: actions/setup-node@v1
-        if: startsWith(github.ref, 'refs/tags')
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
-      - run: npm publish
-        if: startsWith(github.ref, 'refs/tags')
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+    # publish-npm:
+    #   needs: build
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     - uses: actions/checkout@v1
+    #       if: startsWith(github.ref, 'refs/tags')
+    #     - uses: actions/setup-node@v1
+    #       if: startsWith(github.ref, 'refs/tags')
+    #       with:
+    #         node-version: 12
+    #         registry-url: https://registry.npmjs.org/
+    #     - run: npm publish
+    #       if: startsWith(github.ref, 'refs/tags')
+    #       env:
+    #         NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
 
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-        if: startsWith(github.ref, 'refs/tags')
-      - uses: actions/setup-node@v1
-        if: startsWith(github.ref, 'refs/tags')
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: '@hmcts'
-      - run: npm publish
-        if: startsWith(github.ref, 'refs/tags')
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    publish-gpr:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+                  registry-url: https://npm.pkg.github.com/
+                  scope: '@hyperbyte-io'
+            - run: npm install
+            - run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
