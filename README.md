@@ -16,7 +16,19 @@ Configure an express.js handler with checks.
 
 ```javascript
 const config = {
-  checks: {
+  livez: {
+    myComplexWebCheck: healthcheck.web("https://example.com/other", {
+      callback: (err, res) => {
+        return res.body.status == "good" ? healthcheck.up() : healthcheck.down()
+      },
+      timeout: 5000,
+      deadline: 10000,
+    }),
+    myRawCheck: healthcheck.raw(() => {
+      return myInternalCheck() ? healthcheck.up() : healthcheck.down()
+    })
+  },
+  readyz: {
     mySimpleWebCheck: healthcheck.web("https://example.com/status"),
     myComplexWebCheck: healthcheck.web("https://example.com/other", {
       callback: (err, res) => {
@@ -29,36 +41,6 @@ const config = {
       return myInternalCheck() ? healthcheck.up() : healthcheck.down()
     })
   },
-  buildInfo: {
-    myCustomBuildInfo: "yay"
-  }
-};
-healthcheck.addTo(app, config);
-```
-
-You can optionally include [readiness checks](#what-to-include-in-readiness-checks).
-
-```javascript
-const config = {
-  checks: {
-    mySimpleWebCheck: healthcheck.web("https://example.com/status"),
-    myComplexWebCheck: healthcheck.web("https://example.com/other", {
-      callback: (err, res) => {
-        return res.body.status == "good" ? healthcheck.up() : healthcheck.down()
-      },
-      timeout: 5000,
-      deadline: 10000,
-    }),
-    myRawCheck: healthcheck.raw(() => {
-      return myInternalCheck() ? healthcheck.up() : healthcheck.down()
-    })
-  },
-  readinessChecks: {
-    mySimpleWebCheck: healthcheck.web("https://example.com/status")
-  },
-  buildInfo: {
-    myCustomBuildInfo: "yay"
-  }
 };
 healthcheck.addTo(app, config);
 ```
