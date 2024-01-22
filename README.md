@@ -1,6 +1,7 @@
 # Nodejs Healthcheck
 
-A library for adding standard (k8s) healthchecks to nodejs applications.
+A library for adding standard (k8s) healthchecks to nodejs applications. based
+on [nodejs-healthcheck](https://github.com/hmcts/nodejs-healthcheck)
 
 It exposes 2 endpoints:
 
