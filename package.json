@@ -1,6 +1,6 @@
 {
     "name": "@hyperbyte-io/nodejs-livez-readyz",
-    "version": "1.8.5",
+    "version": "1.8.6",
     "description": "Healthcheck endpoints (/livez and /readyz) for nodejs applications",
     "main": "index.js",
     "repository": {
